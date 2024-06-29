@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Screen Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <div id="main-screen">
+            <video class="screen" id="screen1" onclick="showSingleScreen(1)" autoplay playsinline></video>
+            <video class="screen" id="screen2" onclick="showSingleScreen(2)" autoplay playsinline></video>
+            <video class="screen" id="screen3" onclick="showSingleScreen(3)" autoplay playsinline></video>
+            <video class="screen" id="screen4" onclick="showSingleScreen(4)" autoplay playsinline></video>
+        </div>
+        <div id="side-screens">
+            <div id="cutter-lukas">CutterLukas F1 Turnier</div>
+            <img id="placeholder-img" src="meinBild.jpg" alt="Bild einfügen" />
+            <button class="side-screen" onclick="showAllScreens()">Alle Bildschirme</button>
+            <button class="side-screen" onclick="startScreenShare(1)">Teilen Bildschirm 1</button>
+            <button class="side-screen" onclick="startScreenShare(2)">Teilen Bildschirm 2</button>
+            <button class="side-screen" onclick="startScreenShare(3)">Teilen Bildschirm 3</button>
+            <button class="side-screen" onclick="startScreenShare(4)">Teilen Bildschirm 4</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
