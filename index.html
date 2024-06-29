@@ -4,27 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Screen Viewer</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .screen {
+            width: 45%;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
     <div id="container">
-        <div id="main-screen">
-            <video class="screen" id="screen1" onclick="showSingleScreen(1)" autoplay playsinline></video>
-            <video class="screen" id="screen2" onclick="showSingleScreen(2)" autoplay playsinline></video>
-            <video class="screen" id="screen3" onclick="showSingleScreen(3)" autoplay playsinline></video>
-            <video class="screen" id="screen4" onclick="showSingleScreen(4)" autoplay playsinline></video>
-        </div>
-        <div id="side-screens">
-            <div id="cutter-lukas">CutterLukas F1 Turnier</div>
-            <img id="placeholder-img" src="meinBild.jpg" alt="Bild einfügen" />
-            <button class="side-screen" onclick="showAllScreens()">Alle Bildschirme</button>
-            <button class="side-screen" onclick="startScreenShare(1)">Teilen Bildschirm 1</button>
-            <button class="side-screen" onclick="startScreenShare(2)">Teilen Bildschirm 2</button>
-            <button class="side-screen" onclick="startScreenShare(3)">Teilen Bildschirm 3</button>
-            <button class="side-screen" onclick="startScreenShare(4)">Teilen Bildschirm 4</button>
-        </div>
+        <video class="screen" id="screen1" autoplay playsinline></video>
+        <video class="screen" id="screen2" autoplay playsinline></video>
+        <video class="screen" id="screen3" autoplay playsinline></video>
+        <video class="screen" id="screen4" autoplay playsinline></video>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // JavaScript-Code für die WebRTC-Integration
+        async function setupScreens() {
+            const constraints = { video: true, audio: false };
+
+            try {
+                // Video-Streams für jeden Screen holen
+                const stream1 = await navigator.mediaDevices.getUserMedia(constraints);
+                const stream2 = await navigator.mediaDevices.getUserMedia(constraints);
+                const stream3 = await navigator.mediaDevices.getUserMedia(constraints);
+                const stream4 = await navigator.mediaDevices.getUserMedia(constraints);
+
+                // Video-Elemente holen und Streams zuweisen
+                document.getElementById('screen1').srcObject = stream1;
+                document.getElementById('screen2').srcObject = stream2;
+                document.getElementById('screen3').srcObject = stream3;
+                document.getElementById('screen4').srcObject = stream4;
+            } catch (error) {
+                console.error('Fehler bei der Verwendung von getUserMedia: ', error);
+            }
+        }
+
+        // Webseite laden und Setup ausführen
+        window.onload = () => {
+            setupScreens().catch(console.error);
+        };
+    </script>
 </body>
 </html>
-
