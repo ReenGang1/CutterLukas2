@@ -5,18 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Screen Viewer</title>
     <style>
-        #container {
+        body {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        #screens {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
         }
         .screen {
-            width: 45%;
-            margin: 10px;
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div id="container">
+    <div id="screens">
         <video class="screen" id="screen1" autoplay playsinline></video>
         <video class="screen" id="screen2" autoplay playsinline></video>
         <video class="screen" id="screen3" autoplay playsinline></video>
@@ -24,16 +34,17 @@
     </div>
 
     <script>
-        // JavaScript-Code für die WebRTC-Integration
         async function setupScreens() {
             const constraints = { video: true, audio: false };
 
             try {
                 // Video-Streams für jeden Screen holen
-                const stream1 = await navigator.mediaDevices.getUserMedia(constraints);
-                const stream2 = await navigator.mediaDevices.getUserMedia(constraints);
-                const stream3 = await navigator.mediaDevices.getUserMedia(constraints);
-                const stream4 = await navigator.mediaDevices.getUserMedia(constraints);
+                const [stream1, stream2, stream3, stream4] = await Promise.all([
+                    navigator.mediaDevices.getUserMedia(constraints),
+                    navigator.mediaDevices.getUserMedia(constraints),
+                    navigator.mediaDevices.getUserMedia(constraints),
+                    navigator.mediaDevices.getUserMedia(constraints)
+                ]);
 
                 // Video-Elemente holen und Streams zuweisen
                 document.getElementById('screen1').srcObject = stream1;
